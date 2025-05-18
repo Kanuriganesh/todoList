@@ -1,13 +1,16 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Initial tasks data
-    let tasks = [
+   let tasks=[]
+    if(localStorage.getItem('taskData')){
+         tasks = JSON.parse(localStorage.getItem('taskData'))
+         console.log(tasks)
+    }
+    else{
+         tasks = [
         { id: 3, title: 'Task3', priority: 'Medium', deadline: '2025-04-03', completed: false },
         { id: 1, title: 'Task1', priority: 'Medium', deadline: '2025-04-11', completed: false },
         { id: 2, title: 'Task2', priority: 'Medium', deadline: '2025-05-11', completed: false }
     ];
-    if(localStorage.getItem('taskData')){
-         tasks = JSON.parse(localStorage.getItem('taskData'))
-         console.log(tasks)
     }
     const taskList = document.getElementById('taskList');
     const addTaskBtn = document.getElementById('addTaskBtn');
@@ -64,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return statusMatch && priorityMatch;
         });
         console.log(filteredTasks)  
-        localStorage.setItem("taskData",JSON.stringify(filteredTasks)); 
+      
         // Clear the task list
         taskList.innerHTML = '';
 
@@ -133,6 +136,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const taskIndex = tasks.findIndex(task => task.id === taskId);
         if (taskIndex !== -1) {
             tasks[taskIndex].completed = !tasks[taskIndex].completed;
+            localStorage.setItem("taskData",JSON.stringify(tasks)); 
             renderTasks();
         }
     };
@@ -147,15 +151,18 @@ document.addEventListener('DOMContentLoaded', function () {
             // Remove the task
             const taskIndex = tasks.findIndex(t => t.id === taskId);
             tasks.splice(taskIndex, 1);
-
+            localStorage.setItem("taskData",JSON.stringify(tasks)); 
+           
             renderTasks();
         }
+
     };
 
     window.deleteTask = function (taskId) {
         const taskIndex = tasks.findIndex(task => task.id === taskId);
         if (taskIndex !== -1) {
             tasks.splice(taskIndex, 1);
+             localStorage.setItem("taskData",JSON.stringify(tasks)); 
             renderTasks();
         }
     };
