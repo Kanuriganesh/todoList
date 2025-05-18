@@ -6,11 +6,11 @@ document.addEventListener('DOMContentLoaded', function () {
         const parsed = JSON.parse(localStorage.getItem('taskData'));
         tasks = Array.isArray(parsed) ? parsed : [];
     } catch (e) {
-        tasks = [
-    { id: 3, title: 'Task3', priority: 'Medium', deadline: '2025-04-03', completed: false },
-    { id: 1, title: 'Task1', priority: 'Medium', deadline: '2025-04-11', completed: false },
-    { id: 2, title: 'Task2', priority: 'Medium', deadline: '2025-05-11', completed: false }
-  ];
+            tasks = [
+        { id: 3, title: 'Task3', priority: 'Medium', deadline: '2025-04-03', completed: false },
+        { id: 1, title: 'Task1', priority: 'Medium', deadline: '2025-04-11', completed: false },
+        { id: 2, title: 'Task2', priority: 'Medium', deadline: '2025-05-11', completed: false }
+       ];
     }
 }
 
