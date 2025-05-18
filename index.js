@@ -1,17 +1,19 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Initial tasks data
    let tasks=[]
-    if(localStorage.getItem('taskData')){
-         tasks = JSON.parse(localStorage.getItem('taskData'))
-         console.log(tasks)
+    if (localStorage.getItem('taskData')) {
+    try {
+        const parsed = JSON.parse(localStorage.getItem('taskData'));
+        tasks = Array.isArray(parsed) ? parsed : [];
+    } catch (e) {
+        tasks = [
+    { id: 3, title: 'Task3', priority: 'Medium', deadline: '2025-04-03', completed: false },
+    { id: 1, title: 'Task1', priority: 'Medium', deadline: '2025-04-11', completed: false },
+    { id: 2, title: 'Task2', priority: 'Medium', deadline: '2025-05-11', completed: false }
+  ];
     }
-    else{
-         tasks = [
-        { id: 3, title: 'Task3', priority: 'Medium', deadline: '2025-04-03', completed: false },
-        { id: 1, title: 'Task1', priority: 'Medium', deadline: '2025-04-11', completed: false },
-        { id: 2, title: 'Task2', priority: 'Medium', deadline: '2025-05-11', completed: false }
-    ];
-    }
+}
+
     const taskList = document.getElementById('taskList');
     const addTaskBtn = document.getElementById('addTaskBtn');
     const statusFilter = document.getElementById('statusFilter');
@@ -25,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const taskTitle = document.getElementById('taskTitle').value.trim();
         const priority = document.getElementById('priority').value;
         const deadline = document.getElementById('deadline').value;
-
+        console.log("hi")
         if (!taskTitle) {
             alert('Please enter a task title');
             return;
@@ -40,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
         };
 
         tasks.unshift(newTask);
+        localStorage.setItem('taskData',JSON.stringify(tasks))
         renderTasks();
 
         // Clear the form
